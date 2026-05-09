@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Happy Birthday, Celestine 🌷</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100%;background:#0a071a;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif}
+#scene{width:100%;max-width:700px;min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:stretch}
+#envelope{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:#0d0a1a;position:relative;z-index:2}
+#card{display:none;width:100%;min-height:100vh;position:relative;overflow:hidden}
+canvas#bg{position:absolute;inset:0;width:100%;height:100%}
+.card-content{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;padding:3rem 2rem 2rem}
+.env-title{font-size:12px;letter-spacing:4px;color:#c9aef5;text-transform:uppercase;margin-bottom:1.4rem;opacity:0.7}
+.env-icon{font-size:72px;margin-bottom:1.6rem;animation:pulse 2.5s ease-in-out infinite;display:block}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.open-btn{background:linear-gradient(135deg,#7c4dbb,#b06fc4);color:#fff;border:none;padding:16px 44px;border-radius:50px;font-family:Georgia,serif;font-size:18px;cursor:pointer;letter-spacing:1px;transition:transform 0.18s,opacity 0.18s}
+.open-btn:hover{transform:scale(1.06);opacity:0.9}
+.env-sub{font-size:13px;color:#9f85d4;margin-top:1.2rem;opacity:0.65}
+
+/* stars bg on envelope */
+#env-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+
+.honey{font-size:12px;letter-spacing:5px;color:#f7d6a0;text-transform:uppercase;margin-bottom:0.5rem;opacity:0;animation:fadeUp 0.8s 0.3s ease-out forwards}
+.title{font-size:48px;font-weight:700;color:#f9e8ff;line-height:1.1;text-align:center;opacity:0;animation:fadeUp 0.85s 0.55s ease-out forwards;text-shadow:0 0 40px rgba(180,130,255,0.25)}
+.sub{font-size:17px;color:#c9aef5;text-align:center;margin-top:0.75rem;line-height:1.7;opacity:0;animation:fadeUp 0.8s 0.8s ease-out forwards}
+.name-tag{font-size:22px;color:#f7d6a0;margin-top:1.1rem;letter-spacing:3px;opacity:0;animation:fadeUp 0.8s 1.05s ease-out forwards}
+.heart-row{display:flex;gap:10px;margin-top:1.2rem;opacity:0;animation:fadeUp 0.8s 1.3s ease-out forwards}
+.heart{color:#e57fa8;font-size:20px;animation:hb 2.5s ease-in-out infinite}
+.heart:nth-child(2){animation-delay:.3s}.heart:nth-child(3){animation-delay:.6s}
+@keyframes hb{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+.letter{max-width:520px;width:100%;margin-top:1.8rem;background:rgba(255,255,255,0.04);border:0.5px solid rgba(200,170,255,0.18);border-radius:14px;padding:1.6rem 1.8rem;opacity:0;animation:fadeUp 0.9s 1.55s ease-out forwards}
+.letter p{font-size:15px;color:#d9c8f0;line-height:1.85;text-align:left}
+.letter .sig{margin-top:1rem;font-size:14px;color:#f7d6a0;letter-spacing:1px;font-style:italic}
+.tulip-row{width:100%;position:relative;height:220px;margin-top:1.4rem;opacity:0;animation:fadeUp 0.9s 0.9s ease-out forwards}
+.tulip-row svg{width:100%;height:100%}
+.stem-a{animation:stemGrow 0.9s ease-out both}
+.petal-a{animation:petalPop 0.6s ease-out both}
+.sw1{animation:sway 3.5s ease-in-out infinite}
+.sw2{animation:sway 2.9s ease-in-out infinite reverse}
+.sw3{animation:sway 3.1s ease-in-out infinite}
+.sw4{animation:sway 2.7s ease-in-out infinite reverse}
+.sw5{animation:sway 3.8s ease-in-out infinite}
+@keyframes stemGrow{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
+@keyframes petalPop{from{opacity:0;transform:scale(0.2)}to{opacity:1;transform:scale(1)}}
+@keyframes sway{0%,100%{transform:rotate(-1.5deg);transform-origin:50% 100%}50%{transform:rotate(1.5deg);transform-origin:50% 100%}}
+</style>
+</head>
+<body>
+<div id="scene">
+  <div id="envelope">
+    <canvas id="env-canvas"></canvas>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center">
+      <div class="env-title">A little something for you</div>
+      <span class="env-icon">&#127881;</span>
+      <button class="open-btn" onclick="openCard()">Open your card</button>
+      <div class="env-sub">from someone who tolerates/adore you</div>
+    </div>
+  </div>
+
+  <div id="card">
+    <canvas id="bg"></canvas>
+    <div class="card-content">
+      <div class="honey">Honey</div>
+      <div class="title">Happy Birthday</div>
+      <div class="sub">May tonight hold every star<br>you've ever wished upon</div>
+      <div class="name-tag">— for Celestine —</div>
+      <div class="heart-row">
+        <span class="heart">&#9825;</span>
+        <span class="heart">&#9825;</span>
+        <span class="heart">&#9825;</span>
+      </div>
+      <div class="letter">
+        <p>Hey Cel — wow, I can't believe it's been almost a year of us knowing each other. Time really does fly when you're with good people. Playing games with you, talking, just vibing with the gang on Roblox and Repo — it's been such a wonderful and genuinely fun time. Your character is one of a kind: a kind-hearted soul with a fierce and fiery attitude, and I mean that in the best way possible. Keep being yourself, Cel. Never lose that spark you carry.</p>
+        <p class="sig">— your friend, Andy &#9825;</p>
+      </div>
+      <div class="tulip-row">
+        <svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="340" cy="212" rx="320" ry="18" fill="#1a2a0e" opacity="0.7"/>
+          <ellipse cx="340" cy="208" rx="320" ry="13" fill="#253d14" opacity="0.85"/>
+          <!-- Tulip 1 mauve -->
+          <g class="sw1">
+            <rect class="stem-a" x="96" y="120" width="6" height="86" rx="3" fill="#2d5a1b" style="animation-delay:0.8s"/>
+            <ellipse class="stem-a" cx="88" cy="160" rx="17" ry="6" fill="#2d5a1b" transform="rotate(-32 88 160)" style="animation-delay:0.85s"/>
+            <g class="petal-a" style="animation-delay:1.1s;transform-origin:99px 116px">
+              <ellipse cx="99" cy="110" rx="10" ry="14" fill="#9e6e8a" opacity="0.9"/>
+              <ellipse cx="89" cy="101" rx="9" ry="13" fill="#c49eb5" opacity="0.85"/>
+              <ellipse cx="109" cy="101" rx="9" ry="13" fill="#9e6e8a" opacity="0.85"/>
+              <ellipse cx="99" cy="96" rx="8" ry="10" fill="#e2c7d8" opacity="0.65"/>
+            </g>
+          </g>
+          <!-- Tulip 2 lavender -->
+          <g class="sw2">
+            <rect class="stem-a" x="196" y="94" width="7" height="112" rx="3" fill="#2d5a1b" style="animation-delay:0.6s"/>
+            <ellipse class="stem-a" cx="208" cy="135" rx="18" ry="6" fill="#2d5a1b" transform="rotate(26 208 135)" style="animation-delay:0.65s"/>
+            <g class="petal-a" style="animation-delay:0.95s;transform-origin:199px 90px">
+              <ellipse cx="199" cy="82" rx="11" ry="16" fill="#7c6baa" opacity="0.9"/>
+              <ellipse cx="188" cy="71" rx="10" ry="14" fill="#b0a3d4" opacity="0.85"/>
+              <ellipse cx="210" cy="71" rx="10" ry="14" fill="#7c6baa" opacity="0.85"/>
+              <ellipse cx="199" cy="65" rx="9" ry="12" fill="#d8d2ef" opacity="0.6"/>
+            </g>
+          </g>
+          <!-- Tulip 3 deep plum center -->
+          <g class="sw3">
+            <rect class="stem-a" x="328" y="68" width="8" height="138" rx="3" fill="#2d5a1b" style="animation-delay:0.4s"/>
+            <ellipse class="stem-a" cx="314" cy="120" rx="20" ry="7" fill="#2d5a1b" transform="rotate(-28 314 120)" style="animation-delay:0.45s"/>
+            <ellipse class="stem-a" cx="352" cy="136" rx="20" ry="7" fill="#2d5a1b" transform="rotate(24 352 136)" style="animation-delay:0.45s"/>
+            <g class="petal-a" style="animation-delay:0.7s;transform-origin:332px 63px">
+              <ellipse cx="332" cy="54" rx="13" ry="18" fill="#5e3e78" opacity="0.95"/>
+              <ellipse cx="318" cy="42" rx="12" ry="17" fill="#9470b4" opacity="0.85"/>
+              <ellipse cx="346" cy="42" rx="12" ry="17" fill="#5e3e78" opacity="0.85"/>
+              <ellipse cx="332" cy="35" rx="11" ry="14" fill="#c8aadf" opacity="0.55"/>
+            </g>
+          </g>
+          <!-- Tulip 4 blush -->
+          <g class="sw4">
+            <rect class="stem-a" x="458" y="98" width="7" height="108" rx="3" fill="#2d5a1b" style="animation-delay:0.65s"/>
+            <ellipse class="stem-a" cx="446" cy="138" rx="18" ry="6" fill="#2d5a1b" transform="rotate(-24 446 138)" style="animation-delay:0.7s"/>
+            <g class="petal-a" style="animation-delay:1.0s;transform-origin:461px 93px">
+              <ellipse cx="461" cy="85" rx="11" ry="15" fill="#b56e8c" opacity="0.9"/>
+              <ellipse cx="450" cy="74" rx="10" ry="14" fill="#dda9c0" opacity="0.85"/>
+              <ellipse cx="472" cy="74" rx="10" ry="14" fill="#b56e8c" opacity="0.85"/>
+              <ellipse cx="461" cy="68" rx="9" ry="12" fill="#f0d4e2" opacity="0.6"/>
+            </g>
+          </g>
+          <!-- Tulip 5 faded rose -->
+          <g class="sw5">
+            <rect class="stem-a" x="565" y="122" width="6" height="84" rx="3" fill="#2d5a1b" style="animation-delay:0.75s"/>
+            <ellipse class="stem-a" cx="577" cy="160" rx="17" ry="6" fill="#2d5a1b" transform="rotate(30 577 160)" style="animation-delay:0.8s"/>
+            <g class="petal-a" style="animation-delay:1.15s;transform-origin:568px 118px">
+              <ellipse cx="568" cy="110" rx="10" ry="14" fill="#8b5068" opacity="0.9"/>
+              <ellipse cx="558" cy="100" rx="9" ry="13" fill="#bf8fa8" opacity="0.85"/>
+              <ellipse cx="578" cy="100" rx="9" ry="13" fill="#8b5068" opacity="0.85"/>
+              <ellipse cx="568" cy="95" rx="8" ry="10" fill="#e8cdd9" opacity="0.6"/>
+            </g>
+          </g>
+          <!-- fireflies -->
+          <circle cx="150" cy="74" r="2" fill="#f7e8a0" opacity="0.7"><animate attributeName="opacity" values="0.7;0.1;0.7" dur="2.3s" repeatCount="indefinite"/></circle>
+          <circle cx="270" cy="48" r="1.5" fill="#f7e8a0" opacity="0.5"><animate attributeName="opacity" values="0.5;0.05;0.5" dur="1.8s" repeatCount="indefinite"/></circle>
+          <circle cx="420" cy="63" r="1.5" fill="#f7e8a0" opacity="0.6"><animate attributeName="opacity" values="0.6;0.08;0.6" dur="2.6s" repeatCount="indefinite"/></circle>
+          <circle cx="520" cy="82" r="2" fill="#f7e8a0" opacity="0.55"><animate attributeName="opacity" values="0.55;0.1;0.55" dur="3.0s" repeatCount="indefinite"/></circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function makeStarfield(canvas, count){
+  const ctx = canvas.getContext('2d');
+  let W,H,stars=[],orbs=[];
+  function resize(){W=canvas.width=canvas.offsetWidth||700;H=canvas.height=canvas.offsetHeight||window.innerHeight;}
+  function init(){
+    stars=[];
+    for(let i=0;i<count;i++)stars.push({x:Math.random()*W,y:Math.random()*H*0.9,r:Math.random()*1.3+0.3,o:Math.random()*0.6+0.25,sp:Math.random()*0.007+0.003,ph:Math.random()*Math.PI*2});
+    orbs=[{x:W*.18,y:H*.2,r:70,c:'rgba(80,40,130,0.14)'},{x:W*.72,y:H*.15,r:90,c:'rgba(100,50,160,0.10)'},{x:W*.5,y:H*.38,r:120,c:'rgba(60,20,100,0.08)'}];
+  }
+  function draw(t){
+    ctx.clearRect(0,0,W,H);
+    const g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#0a071a');g.addColorStop(.4,'#110e28');g.addColorStop(.75,'#1a1030');g.addColorStop(1,'#0d1a0a');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    orbs.forEach(o=>{const og=ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r);og.addColorStop(0,o.c);og.addColorStop(1,'transparent');ctx.fillStyle=og;ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,Math.PI*2);ctx.fill();});
+    stars.forEach(s=>{const p=Math.sin(t*s.sp+s.ph)*.3+.7;ctx.globalAlpha=s.o*p;ctx.fillStyle='#f0e8ff';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();});
+    ctx.globalAlpha=1;
+  }
+  return {resize,init,draw};
+}
+
+const envSF = makeStarfield(document.getElementById('env-canvas'),100);
+envSF.resize();envSF.init();
+let envT=0;
+(function envLoop(t){envSF.draw(t*.001);requestAnimationFrame(envLoop);})(0);
+window.addEventListener('resize',()=>{envSF.resize();envSF.init();});
+
+function openCard(){
+  document.getElementById('envelope').style.display='none';
+  const card=document.getElementById('card');
+  card.style.display='block';
+  const cardSF=makeStarfield(document.getElementById('bg'),180);
+  cardSF.resize();cardSF.init();
+  (function loop(t){cardSF.draw(t*.001);requestAnimationFrame(loop);})(0);
+  window.addEventListener('resize',()=>{cardSF.resize();cardSF.init();});
+}
+</script>
+</body>
+</html>
